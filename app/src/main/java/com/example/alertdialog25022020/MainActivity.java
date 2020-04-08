@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -32,21 +33,42 @@ public class MainActivity extends AppCompatActivity {
 
                 //Mảng con vật
                 final String[] arrayAnimals ={"Mèo", "Chó","Heo","Gà"};
+                final boolean [] arrayCheekedItem = {false,false,false,false};
                 //Single choice lick chọn 1 thuôc tính
-                builder.setSingleChoiceItems(arrayAnimals, -1, new DialogInterface.OnClickListener() {
+//                builder.setSingleChoiceItems(arrayAnimals, -1, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        index = which;
+//                    }
+//                });
+//                builder.setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        Toast.makeText(MainActivity.this, arrayAnimals[index], Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
+                //Mutiple choice
+                builder.setMultiChoiceItems(arrayAnimals, arrayCheekedItem, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        index = which;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
                     }
                 });
                 builder.setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, arrayAnimals[index], Toast.LENGTH_SHORT).show();
+                        String value = "";
+                        for (int i=0; i<arrayAnimals.length; i++) {
+                            if (arrayCheekedItem[i]){
+                                value += arrayAnimals[i];
+
+                            }
+                        }
+                        Toast.makeText(MainActivity.this, value , Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                //Mutiple choice
+                builder.show();
 
 
 
